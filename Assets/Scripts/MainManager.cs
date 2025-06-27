@@ -29,7 +29,7 @@ public class MainManager : MonoBehaviour
             var highScoreTextComponent = highScoreText.GetComponent<Text>();
             if (highScoreTextComponent != null)
             {
-                highScoreTextComponent.text = $"Best Score : {Tracker.Instance.playerName}";
+                highScoreTextComponent.text = $"Best Score : {Tracker.Instance.playerName} : {Tracker.Instance.highScore}";
             }
             else
             {
@@ -90,7 +90,21 @@ public class MainManager : MonoBehaviour
 
     public void GameOver()
     {
+        if (Tracker.Instance.highScore < m_Points)
+        {
+            Tracker.Instance.highScore = m_Points;
+        }
         m_GameOver = true;
         GameOverText.SetActive(true);
+    }
+
+    // Method that takes you to the menu scene
+    public void GoToMenu()
+    {
+        // Save the high score before going to the menu
+        Tracker.Instance.SaveHighScore();
+        
+        // Load the menu scene
+        SceneManager.LoadScene("menu");
     }
 }
