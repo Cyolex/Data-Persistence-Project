@@ -22,6 +22,26 @@ public class MainManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        // set HighScoreText to Best Score : playerName
+        var highScoreText = GameObject.Find("HighScoreText");
+        if (highScoreText != null)
+        {
+            var highScoreTextComponent = highScoreText.GetComponent<Text>();
+            if (highScoreTextComponent != null)
+            {
+                highScoreTextComponent.text = $"Best Score : {Tracker.Instance.playerName}";
+            }
+            else
+            {
+                Debug.LogError("HighScoreText component not found!");
+            }
+        }
+        else
+        {
+            Debug.LogError("HighScoreText GameObject not found!");
+        }
+
+
         const float step = 0.6f;
         int perLine = Mathf.FloorToInt(4.0f / step);
         
